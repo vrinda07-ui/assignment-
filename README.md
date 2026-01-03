@@ -1,50 +1,114 @@
-# Welcome to your Expo app 👋
+# Clerk Auth Expo App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A production-ready Expo application with real authentication using Clerk, TypeScript, and Expo Router.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 🔐 **Real Authentication** using @clerk/clerk-expo
+- 💾 **Persistent Sessions** with expo-secure-store token cache
+- 📱 **File-based Routing** with Expo Router
+- 🎨 **Clean UI** with StyleSheet (production-ready styling)
+- 📊 **Dashboard** with user information
+- 👤 **Profile Management** with logout functionality
+- 🔒 **Auth Guard** for protected routes
+
+## Project Structure
+
+```
+app/
+├── _layout.tsx              # Root layout with ClerkProvider and auth guard
+├── (auth)/                  # Authentication group
+│   ├── _layout.tsx         # Auth navigation
+│   ├── login.tsx           # Login screen
+│   └── signup.tsx          # Signup screen
+└── (app)/                   # Main app group (protected)
+    ├── _layout.tsx         # Tab navigation
+    ├── index.tsx           # Home dashboard
+    └── profile.tsx         # Profile screen with logout
+lib/
+└── cache.ts                 # Token cache implementation
+```
+
+## Setup
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Configure Clerk**
+
+   - Create a Clerk account at [https://clerk.dev](https://clerk.dev)
+   - Get your Publishable Key from the Clerk dashboard
+   - Copy `.env.example` to `.env`
+   - Replace the placeholder key with your actual Clerk Publishable Key:
+
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your Clerk Publishable Key
+   EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
+   ```
+
+3. **Start the app**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Authentication Flow
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. **Unauthenticated users** are redirected to `/ (auth)/login`
+2. **Authenticated users** are redirected to `/ (app)/` (dashboard)
+3. **Persistent sessions** are maintained using expo-secure-store
+4. **Logout** clears the session and redirects to login
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Key Components
 
-## Get a fresh project
+### Token Cache (`lib/cache.ts`)
+- Uses expo-secure-store for secure token storage
+- Handles getToken, saveToken, and removeToken operations
+- Provides persistent authentication across app restarts
 
-When you're ready, run:
+### Auth Guard (`app/_layout.tsx`)
+- Wraps the entire app with ClerkProvider
+- Monitors authentication state with useAuth hook
+- Automatically redirects based on isSignedIn status
+
+### Login/Signup Screens
+- Clean, professional UI with form validation
+- Error handling with user-friendly messages
+- Navigation between auth screens
+
+### Dashboard & Profile
+- Home screen with welcome message and stats
+- Profile screen displaying user ID, email, and account details
+- Styled logout button with proper session cleanup
+
+## Development
+
+The app uses:
+- **TypeScript** for type safety
+- **Expo Router** for file-based navigation
+- **StyleSheet** for production-ready styling
+- **Clerk** for authentication
+- **expo-secure-store** for secure token storage
+
+## Build for Production
 
 ```bash
-npm run reset-project
+# Build for iOS
+npx expo build:ios
+
+# Build for Android
+npx expo build:android
+
+# Build for web
+npx expo build:web
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Learn More
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo documentation](https://docs.expo.dev/)
+- [Clerk documentation](https://clerk.com/docs)
+- [Expo Router documentation](https://docs.expo.dev/router/introduction)
