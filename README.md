@@ -4,13 +4,13 @@ A production-ready Expo application with real authentication using Clerk, TypeSc
 
 ## Features
 
-- 🔐 **Real Authentication** using @clerk/clerk-expo
-- 💾 **Persistent Sessions** with expo-secure-store token cache
-- 📱 **File-based Routing** with Expo Router
-- 🎨 **Clean UI** with StyleSheet (production-ready styling)
-- 📊 **Dashboard** with user information
-- 👤 **Profile Management** with logout functionality
-- 🔒 **Auth Guard** for protected routes
+- **Real Authentication** using @clerk/clerk-expo
+- **Persistent Sessions** with expo-secure-store token cache
+- **File-based Routing** with Expo Router
+- **Clean UI** with StyleSheet (production-ready styling)
+- **Dashboard** with user information
+- **Profile Management** with logout functionality
+- **Auth Guard** for protected routes
 
 ## Project Structure
 
